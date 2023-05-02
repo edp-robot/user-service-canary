@@ -11,7 +11,7 @@ spec:
       stableService: {{ include "user-service-canary.fullname" . }}-stable
       trafficRouting:
         nginx:
-          stableIngress: {{ include "user-service-canary.fullname" . }}
+          stableIngress: {{ include "user-service-canary.fullname" . }}-stable
       steps:
       - setWeight: 20
       - pause:
