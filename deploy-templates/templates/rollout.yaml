@@ -1,10 +1,27 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: {{ include "user-service-canary.fullname" . }}
   labels:
     {{- include "user-service-canary.labels" . | nindent 4 }}
 spec:
+  strategy:
+    canary:
+      canaryService: {{ include "user-service-canary.fullname" . }}-canary
+      stableService: {{ include "user-service-canary.fullname" . }}-stable
+      trafficRouting:
+        nginx:
+          stableIngress: {{ include "user-service-canary.fullname" . }}
+      steps:
+      - setWeight: 20
+      - pause:
+          duration: "30s"
+      - setWeight: 50
+      - pause:
+          duration: "30s"
+      - setWeight: 80
+      - pause:
+          duration: 10s
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
 {{- end }}
