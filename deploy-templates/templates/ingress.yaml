@@ -45,11 +45,11 @@ spec:
             backend:
               {{- if $ingressApiIsStable }}
               service:
-                name: {{ $fullName }}
+                name: {{ $fullName }}-stable
                 port: 
                   number: {{ $svcPort }}
               {{- else }}
-              serviceName: {{ $fullName }}-stable
+              serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
               {{- end }}
   {{- end }}
