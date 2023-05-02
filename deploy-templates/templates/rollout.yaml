@@ -12,6 +12,9 @@ spec:
       trafficRouting:
         nginx:
           stableIngress: {{ include "user-service-canary.fullname" . }}-stable
+          additionalIngressAnnotations:   # optional
+            canary-by-header: X-Canary
+            canary-by-header-value: iwantsit
       steps:
       - setWeight: 20
       - pause:
