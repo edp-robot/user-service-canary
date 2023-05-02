@@ -8,7 +8,7 @@
 kind: Ingress
 apiVersion: {{ include "user-service-canary.ingress.apiVersion" . }}
 metadata:
-  name: {{ $fullName }}
+  name: {{ $fullName }}-stable
   labels:
     {{- include "user-service-canary.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
