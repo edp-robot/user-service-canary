@@ -1,1 +1,1 @@
-FROM argoproj/rollouts-demo:blue
+FROM argoproj/rollouts-demo:green
